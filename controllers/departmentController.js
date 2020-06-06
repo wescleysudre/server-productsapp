@@ -23,4 +23,31 @@ router.get('/', function (req, res) {
 
 })
 
+router.delete('/:id', (req, res) => {
+  let id = req.params.id;
+  Departament.deleteOne({ _id: id }, (err) => {
+    if (err) {
+      console.log('deu pau aqui');
+      res.status(500).send(err);
+    }
+    else
+      res.status(200).send({});
+  })
+})
+
+router.patch('/:id', (req, res) => {
+  Departament.findById(req.params.id, (err, dep) => {
+    if (err)
+      res.status(500).send(err);
+    else if (!dep)
+      res.status(404).send({})
+    else {
+      dep.name = req.body.name;
+      dep.save()
+        .then((d) => res.status(200).send(d))
+        .catch((e) => res.status(500).send(e));
+    }
+  })
+})
+
 module.exports = router;

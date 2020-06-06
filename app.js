@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const departmentController = require('./controllers/departmentController');
+const productController = require('./controllers/productController');
 
 const app = express();
 
@@ -19,6 +20,6 @@ mongoose.connect(
 );
 
 app.use('/departments', departmentController);
-// app.use('/products', productController);
+app.use('/products', productController);
 
 app.listen(3000);
